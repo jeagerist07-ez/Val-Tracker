@@ -1,0 +1,2777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VALORANT STATS 100% REAL NO FAKE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+    </script>
+    <style>
+        /* ============================================================
+           TROLL UI — chaotic, bright, comic-sans, lots of sarcasm
+           ============================================================ */
+        :root {
+            --toxic-green: #39ff14;
+            --ugly-purple: #bf00ff;
+            --hot-pink: #ff69b4;
+            --pee-yellow: #ffff00;
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --text: #ffffff;
+            --hk-pink: #ff69b4;
+            --hk-light-pink: #ffb6c1;
+            --hk-soft-pink: #fff0f5;
+            --hk-red: #e4002b;
+            --hk-gold: #ffd700;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", cursive;
+            color: #000;
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+            cursor: default;
+        }
+
+        /* ---- HELLO KITTY THEME BACKGROUND ---- */
+        .hello-kitty-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4e8 25%, #ffd1dc 50%, #ffb6c1 75%, #ffc0cb 100%);
+            background-size: 400% 400%;
+            animation: softPinkDrift 12s ease-in-out infinite;
+        }
+        @keyframes softPinkDrift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Floating Hello Kitty faces container */
+        .hk-floaters {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .hk-floater {
+            position: absolute;
+            opacity: 0;
+            animation: hkFloatIn 1s ease forwards;
+        }
+
+        @keyframes hkFloatIn {
+            0% { opacity: 0; transform: scale(0.5) rotate(-20deg); }
+            100% { opacity: var(--hk-opacity, 0.15); transform: scale(1) rotate(var(--hk-rot, 0deg)); }
+        }
+
+        .hk-floater svg {
+            animation: hkGentleBob var(--hk-dur, 6s) ease-in-out infinite;
+            animation-delay: var(--hk-delay, 0s);
+            filter: drop-shadow(0 2px 8px rgba(255, 105, 180, 0.2));
+        }
+
+        @keyframes hkGentleBob {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(3deg); }
+            75% { transform: translateY(10px) rotate(-2deg); }
+        }
+
+        /* Floating hearts and bows */
+        .hk-particle {
+            position: absolute;
+            font-size: var(--p-size, 20px);
+            opacity: 0;
+            animation: hkParticleFloat var(--p-dur, 8s) ease-in-out infinite;
+            animation-delay: var(--p-delay, 0s);
+            pointer-events: none;
+        }
+
+        @keyframes hkParticleFloat {
+            0% { 
+                opacity: 0; 
+                transform: translateY(100vh) rotate(0deg) scale(0.5); 
+            }
+            10% { opacity: var(--p-opacity, 0.4); }
+            90% { opacity: var(--p-opacity, 0.4); }
+            100% { 
+                opacity: 0; 
+                transform: translateY(-100px) rotate(360deg) scale(1); 
+            }
+        }
+
+        /* Scattered bow pattern */
+        .hk-bow-pattern {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(228, 0, 43, 0.06) 0%, transparent 20%),
+                radial-gradient(circle at 90% 30%, rgba(228, 0, 43, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 50% 80%, rgba(255, 105, 180, 0.04) 0%, transparent 30%),
+                radial-gradient(circle at 30% 60%, rgba(228, 0, 43, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 70% 10%, rgba(255, 105, 180, 0.06) 0%, transparent 22%);
+        }
+
+        /* Subtle stripe pattern */
+        .hk-stripes {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 40px,
+                rgba(255, 182, 193, 0.08) 40px,
+                rgba(255, 182, 193, 0.08) 42px
+            );
+        }
+
+        /* ---- HEADER & MARQUEE ---- */
+        header {
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 5px dashed var(--hk-red);
+            position: relative;
+            z-index: 20;
+        }
+
+        .site-logo {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: var(--hk-red);
+            text-shadow: 2px 2px var(--hk-pink);
+            animation: logoBounce 2s ease-in-out infinite;
+            cursor: pointer;
+            user-select: none;
+            font-family: "Bangers", cursive;
+        }
+        @keyframes logoBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .marquee {
+            background: var(--hk-red);
+            color: #fff;
+            font-size: 1.1rem;
+            padding: 4px;
+            font-family: monospace;
+            border-bottom: 2px solid var(--hk-gold);
+            position: relative;
+            z-index: 20;
+        }
+        .marquee marquee {
+            display: block;
+        }
+
+        /* ---- VANGUARD BANNER ---- */
+        .vanguard-banner {
+            background: var(--hk-red);
+            color: #fff;
+            padding: 8px 12px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            text-align: center;
+            animation: vanguardPulse 2s ease-in-out infinite;
+            cursor: pointer;
+            position: relative;
+            z-index: 25;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom: 3px solid var(--hk-gold);
+        }
+        .vanguard-banner:hover {
+            animation: vanguardPulse 0.5s ease-in-out infinite;
+        }
+        @keyframes vanguardPulse {
+            0%, 100% { 
+                background: var(--hk-red);
+                box-shadow: 0 0 0 0 rgba(228, 0, 43, 0.4);
+            }
+            50% { 
+                background: #ff1a1a;
+                box-shadow: 0 0 20px 5px rgba(255, 105, 180, 0.3);
+            }
+        }
+
+        /* ---- FAKE AD BAR ---- */
+        .ad-bar {
+            background: var(--hk-pink);
+            color: #fff;
+            padding: 6px 12px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 2px solid var(--hk-red);
+            position: relative;
+            z-index: 25;
+            animation: adGlow 2s ease-in-out infinite;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+        }
+        .ad-bar:hover {
+            animation: adGlow 0.5s ease-in-out infinite;
+        }
+        @keyframes adGlow {
+            0%, 100% { background: var(--hk-pink); }
+            50% { background: var(--hk-light-pink); }
+        }
+
+        /* ---- ROTATING TIPS ---- */
+        .tips-bar {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--hk-red);
+            padding: 6px 12px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 0.95rem;
+            text-align: center;
+            border-bottom: 2px dashed var(--hk-pink);
+            position: relative;
+            z-index: 25;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tips-bar span {
+            animation: tipFade 0.5s ease;
+        }
+        @keyframes tipFade {
+            0% { opacity: 0; transform: translateY(-10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ---- CONTROLS ---- */
+        .controls {
+            margin-top: 16px;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 20;
+        }
+
+        .controls-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .controls input,
+        .controls select {
+            background: #fff;
+            border: 3px solid var(--hk-pink);
+            color: #333;
+            padding: 10px 14px;
+            font-family: "Comic Sans MS", "Comic Neue", cursive;
+            font-size: 1.1rem;
+            font-weight: bold;
+            min-width: 120px;
+            border-radius: 8px;
+        }
+        .controls input::placeholder {
+            color: #aaa;
+            font-weight: normal;
+        }
+
+        #searchBtn {
+            background: var(--hk-red);
+            color: #fff;
+            border: 4px solid var(--hk-pink);
+            padding: 12px 28px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            font-family: "Bangers", cursive;
+            cursor: pointer;
+            transition: transform 0.1s;
+            position: relative;
+            z-index: 30;
+            letter-spacing: 1px;
+            border-radius: 12px;
+            box-shadow: 3px 3px 0 var(--hk-pink);
+        }
+        #searchBtn:active {
+            transform: scale(0.96);
+            box-shadow: 1px 1px 0 var(--hk-pink);
+        }
+        #searchBtn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        #searchBtn.static {
+            position: relative !important;
+            left: auto !important;
+            top: auto !important;
+            z-index: 30 !important;
+        }
+
+        .search-status {
+            font-size: 0.9rem;
+            color: var(--hk-red);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 4px;
+            border: 2px solid var(--hk-light-pink);
+        }
+
+        /* ---- RESULTS / PROFILE CONTAINER ---- */
+        #profileContent {
+            margin: 20px auto 50px;
+            width: 92%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 4px solid var(--hk-pink);
+            padding: 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+            min-height: 200px;
+            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
+        }
+
+        /* ---- MONKEY ---- */
+        #monkey {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            font-size: 4rem;
+            cursor: pointer;
+            z-index: 999;
+            filter: drop-shadow(0 4px 12px rgba(255, 105, 180, 0.5));
+            transition: transform 0.15s;
+            user-select: none;
+        }
+        #monkey:hover {
+            transform: scale(1.2) rotate(-8deg);
+        }
+
+        /* ---- REPORT SELF BUTTON ---- */
+        #reportSelfBtn {
+            position: fixed;
+            bottom: 80px;
+            right: 16px;
+            background: var(--hk-red);
+            color: #fff;
+            padding: 8px 16px;
+            font-family: 'Bangers', cursive;
+            font-size: 1rem;
+            border: 3px solid var(--hk-pink);
+            cursor: pointer;
+            z-index: 998;
+            transform: rotate(3deg);
+            box-shadow: 3px 3px 0 var(--hk-pink);
+            transition: transform 0.1s;
+            border-radius: 8px;
+        }
+        #reportSelfBtn:active {
+            transform: rotate(0deg) translate(2px, 2px);
+            box-shadow: none;
+        }
+
+        /* ============================================================
+           CONTENT STYLES (Hello Kitty themed)
+           ============================================================ */
+        .api-notice {
+            background: var(--hk-pink);
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid var(--hk-red);
+            transform: rotate(1deg);
+            margin-bottom: 16px;
+            font-family: "Comic Neue", cursive;
+            border-radius: 8px;
+        }
+        .status-box {
+            text-align: center;
+            padding: 60px 20px;
+            font-family: 'Press Start 2P', cursive;
+            color: var(--hk-red);
+        }
+        .status-box .loader {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--hk-pink);
+            border-top-color: var(--hk-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .status-box .error-text {
+            color: var(--hk-red);
+            font-size: 24px;
+            text-shadow: 2px 2px 0 var(--hk-pink);
+        }
+
+        /* ---- HERO ---- */
+        .hero {
+            background: var(--bg-card);
+            border: 3px solid var(--hk-pink);
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            box-shadow: 8px 8px 0 var(--hk-light-pink);
+            text-align: left;
+            border-radius: 12px;
+        }
+        .hero::before {
+            content: "U MAD BRO?";
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            background: var(--hk-gold);
+            color: #333;
+            padding: 5px 15px;
+            font-family: 'Bangers', cursive;
+            transform: rotate(5deg);
+            border: 2px solid var(--hk-red);
+            font-size: 18px;
+            z-index: 5;
+            border-radius: 6px;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 20px;
+        }
+        .hero-left {
+            text-align: center;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            background: #fff;
+            border: 4px solid var(--hk-pink);
+            margin: 0 auto 10px;
+            overflow: hidden;
+            transform: rotate(-3deg);
+            border-radius: 12px;
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .level-badge {
+            background: var(--hk-gold);
+            color: #333;
+            font-family: 'Bangers', cursive;
+            font-size: 18px;
+            padding: 2px 10px;
+            display: inline-block;
+            margin-top: -10px;
+            border: 2px solid var(--hk-red);
+            transform: rotate(2deg);
+            border-radius: 6px;
+        }
+        .player-name {
+            font-family: 'Bangers', cursive;
+            font-size: 32px;
+            color: var(--hk-red);
+            text-shadow: 2px 2px 0 var(--hk-pink);
+            margin-top: 5px;
+        }
+        .player-tag {
+            color: var(--hk-pink);
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .rank-display {
+            margin-top: 15px;
+            background: #fff;
+            padding: 10px;
+            border: 2px dashed var(--hk-pink);
+            border-radius: 12px;
+        }
+        .rank-display img {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            display: block;
+            filter: drop-shadow(2px 2px 0 var(--hk-pink));
+        }
+        .rank-name {
+            font-family: 'Bangers', cursive;
+            font-size: 24px;
+            color: var(--hk-red);
+            text-shadow: 1px 1px 0 var(--hk-pink);
+        }
+        .troll-rank {
+            font-size: 14px;
+            color: var(--hk-pink);
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .rr-text {
+            color: var(--hk-red);
+            font-family: 'Press Start 2P', cursive;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .peak-rank {
+            color: var(--hk-pink);
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 3px;
+        }
+        .sarcastic-comment {
+            margin-top: 10px;
+            background: rgba(255, 105, 180, 0.15);
+            border: 1px dashed var(--hk-pink);
+            padding: 8px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            color: var(--hk-red);
+            font-size: 14px;
+            border-radius: 8px;
+        }
+
+        .hero-right {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            align-self: start;
+        }
+        .stat-card {
+            background: #fff;
+            border: 2px solid var(--hk-pink);
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.15s;
+            position: relative;
+            border-radius: 12px;
+        }
+        .stat-card:hover {
+            transform: scale(1.05) rotate(1deg);
+            z-index: 10;
+            box-shadow: 0 4px 16px rgba(255, 105, 180, 0.3);
+        }
+        .stat-card:nth-child(2) { border-color: var(--hk-red); transform: rotate(-1deg); }
+        .stat-card:nth-child(3) { border-color: var(--hk-gold); transform: rotate(1deg); }
+        .stat-card:nth-child(4) { border-color: var(--hk-light-pink); transform: rotate(-2deg); }
+        .stat-card:nth-child(5) { border-color: var(--hk-pink); transform: rotate(2deg); }
+        .stat-card:nth-child(6) { border-color: var(--hk-red); transform: rotate(-1deg); }
+        .stat-value {
+            font-family: 'Bangers', cursive;
+            font-size: 36px;
+            color: var(--hk-red);
+            text-shadow: 2px 2px 0 var(--hk-pink);
+        }
+        .stat-label {
+            font-size: 12px;
+            color: var(--hk-pink);
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .stat-card:nth-child(2) .stat-label { color: var(--hk-red); }
+        .stat-card:nth-child(3) .stat-label { color: #b8860b; }
+
+        /* ---- STAT ROAST ---- */
+        .stat-roast {
+            font-size: 11px;
+            color: var(--hk-red);
+            margin-top: 6px;
+            font-family: 'Comic Neue', cursive;
+            font-weight: bold;
+            background: rgba(255, 105, 180, 0.1);
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 1px dashed var(--hk-pink);
+        }
+
+        /* ---- VERDICT BOX ---- */
+        .verdict-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border: 4px double var(--hk-pink);
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.2);
+            border-radius: 16px;
+        }
+        .verdict-box .verdict-title {
+            font-family: 'Bangers', cursive;
+            font-size: 2.2rem;
+            color: var(--hk-red);
+            text-shadow: 2px 2px 0 var(--hk-pink);
+        }
+        .verdict-box .verdict-score {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.2rem;
+            color: var(--hk-pink);
+            margin: 8px 0;
+        }
+        .verdict-box .verdict-roast {
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.6rem;
+            font-weight: bold;
+            padding: 8px 16px;
+            display: inline-block;
+            border-radius: 12px;
+            margin-top: 6px;
+        }
+        .verdict-roast.fire {
+            background: var(--hk-red);
+            color: #fff;
+        }
+        .verdict-roast.mid {
+            background: var(--hk-gold);
+            color: #333;
+        }
+        .verdict-roast.good {
+            background: #90ee90;
+            color: #333;
+        }
+        .verdict-roast.sus {
+            background: var(--hk-pink);
+            color: #fff;
+        }
+
+        /* ---- SECTION TITLE ---- */
+        .section-title {
+            font-family: 'Bangers', cursive;
+            font-size: 32px;
+            color: var(--hk-red);
+            text-shadow: 3px 3px 0 var(--hk-pink);
+            margin: 30px 0 15px;
+            display: inline-block;
+            background: var(--hk-pink);
+            padding: 5px 15px;
+            transform: rotate(-1deg);
+            border: 2px solid var(--hk-red);
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        /* ---- MATCH LIST ---- */
+        .match-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .match {
+            background: var(--bg-card);
+            border: 3px solid var(--hk-light-pink);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .match.win {
+            border-color: #90ee90;
+            box-shadow: 6px 6px 0 #90ee90;
+        }
+        .match.loss {
+            border-color: var(--hk-pink);
+            box-shadow: 6px 6px 0 var(--hk-pink);
+        }
+        .match:hover {
+            transform: translate(-3px, -3px);
+        }
+        .match.win:hover { box-shadow: 9px 9px 0 #90ee90; }
+        .match.loss:hover { box-shadow: 9px 9px 0 var(--hk-pink); }
+        .match:active { transform: translate(1px, 1px); }
+        .match.win:active { box-shadow: 3px 3px 0 #90ee90; }
+        .match.loss:active { box-shadow: 3px 3px 0 var(--hk-pink); }
+        .match-bar {
+            width: 100%;
+            height: 6px;
+            flex-shrink: 0;
+        }
+        .win .match-bar { background: #90ee90; }
+        .loss .match-bar { background: var(--hk-pink); }
+        .match-body {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+        .match-info {
+            padding: 18px 22px;
+            flex: 2;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            min-width: 200px;
+        }
+        .agent-icon {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--hk-gold);
+            overflow: hidden;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+        .agent-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .match-details {
+            min-width: 0;
+            text-align: left;
+            flex: 1;
+        }
+        .match-details h3 {
+            font-family: 'Bangers', cursive;
+            font-size: 26px;
+            color: #fff;
+            line-height: 1.2;
+            letter-spacing: 0.5px;
+        }
+        .match-details p {
+            color: var(--hk-pink);
+            font-size: 14px;
+            font-weight: bold;
+            word-break: break-word;
+            margin-top: 3px;
+        }
+        .match-details .match-roast {
+            font-size: 12px;
+            color: var(--hk-red);
+            font-style: italic;
+            margin-top: 4px;
+            opacity: 0.9;
+        }
+        .match-details .click-hint {
+            font-size: 10px;
+            color: #888;
+            opacity: 0.7;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+        .loss .match-details h3 { color: var(--hk-pink); }
+        .match-stats {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 14px 20px;
+            background: rgba(255, 105, 180, 0.1);
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex: 1;
+            min-width: 160px;
+            border-radius: 0 0 0 12px;
+        }
+        .mstat { text-align: center; min-width: 40px; }
+        .mstat-val {
+            font-family: 'Bangers', cursive;
+            font-size: 24px;
+            color: var(--hk-red);
+        }
+        .mstat-lbl {
+            font-size: 10px;
+            color: var(--hk-pink);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .troll-badge {
+            position: absolute;
+            right: 14px;
+            top: -12px;
+            background: var(--hk-red);
+            color: #fff;
+            padding: 3px 12px;
+            font-family: 'Bangers', cursive;
+            font-size: 14px;
+            transform: rotate(6deg);
+            border: 2px solid var(--hk-pink);
+            z-index: 2;
+            white-space: nowrap;
+            border-radius: 6px;
+        }
+        .loss .troll-badge { background: var(--hk-gold); color: #333; }
+
+        /* ---- CONTENT GRID ---- */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            text-align: left;
+        }
+        .side-card {
+            background: var(--bg-card);
+            border: 3px solid var(--hk-pink);
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 5px 5px 0 var(--hk-light-pink);
+            border-radius: 12px;
+        }
+        .side-card:nth-child(2) {
+            border-color: var(--hk-red);
+            box-shadow: 5px 5px 0 var(--hk-gold);
+        }
+        .side-head {
+            font-family: 'Bangers', cursive;
+            font-size: 24px;
+            color: var(--hk-red);
+            border-bottom: 2px dashed var(--hk-pink);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .agent-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            border-bottom: 1px solid #333;
+        }
+        .agent-row:last-child { border-bottom: none; }
+        .agent-mini {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--hk-pink);
+            flex-shrink: 0;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+        .agent-mini img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .agent-info { flex: 1; min-width: 0; }
+        .agent-name { font-weight: bold; color: #fff; }
+        .agent-stats { font-size: 12px; color: var(--hk-pink); }
+        .agent-wr {
+            font-family: 'Bangers', cursive;
+            font-size: 18px;
+            color: var(--hk-red);
+            flex-shrink: 0;
+        }
+        .agent-roast {
+            font-size: 10px;
+            color: var(--hk-pink);
+            font-style: italic;
+            margin-top: 2px;
+            opacity: 0.8;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 3px solid var(--hk-gold);
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: -5px 5px 0 var(--hk-pink);
+            border-radius: 12px;
+        }
+        .chart-wrap {
+            height: 280px;
+            position: relative;
+        }
+        .chart-wrap canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .text-muted { color: #888; }
+
+        /* ============================================================
+           JUMPS CARE OVERLAY (shared)
+           ============================================================ */
+        .jumpscare-overlay {
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: jumpscareFlash 0.7s ease-out forwards;
+        }
+        .jumpscare-emoji {
+            font-size: 50vmin;
+            line-height: 1;
+            filter: drop-shadow(0 0 40px var(--hk-pink));
+            animation: jumpscarePunch 0.7s cubic-bezier(.2, 1.6, .4, 1) forwards;
+        }
+        .jumpscare-text {
+            position: absolute;
+            bottom: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Bangers', cursive;
+            font-size: clamp(28px, 6vw, 64px);
+            color: var(--hk-red);
+            text-shadow: 3px 3px 0 var(--hk-pink), -2px -2px 0 #fff;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+        @keyframes jumpscareFlash {
+            0% { background: var(--hk-pink); }
+            8% { background: #fff; }
+            100% { background: #fff; }
+        }
+        @keyframes jumpscarePunch {
+            0% { transform: scale(0.2) rotate(-8deg); opacity: 0; }
+            35% { transform: scale(1.15) rotate(4deg); opacity: 1; }
+            55% { transform: scale(0.95) rotate(-2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .jumpscare-overlay, .jumpscare-emoji { animation: none !important; }
+        }
+
+        /* ============================================================
+           MATCH DETAIL MODAL
+           ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 240, 245, 0.95);
+            z-index: 999;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 40px 16px;
+            backdrop-filter: blur(8px);
+        }
+        .match-modal {
+            background: var(--bg-card);
+            border: 4px solid var(--hk-pink);
+            box-shadow: 10px 10px 0 var(--hk-light-pink);
+            max-width: 800px;
+            width: 100%;
+            margin: auto;
+            padding: 24px;
+            position: relative;
+            text-align: left;
+            border-radius: 16px;
+        }
+        .modal-close {
+            position: absolute;
+            top: -18px;
+            right: -18px;
+            width: 40px;
+            height: 40px;
+            background: var(--hk-red);
+            color: #fff;
+            border: 3px solid var(--hk-pink);
+            font-family: 'Bangers', cursive;
+            font-size: 22px;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 3px 3px 0 var(--hk-pink);
+        }
+        .modal-close:active { transform: translate(2px, 2px); box-shadow: none; }
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px dashed var(--hk-pink);
+            padding-bottom: 16px;
+        }
+        .modal-header h2 {
+            font-family: 'Bangers', cursive;
+            font-size: 34px;
+            color: var(--hk-red);
+            text-shadow: 2px 2px 0 var(--hk-pink);
+        }
+        .modal-header p {
+            color: var(--hk-pink);
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 6px;
+        }
+        .scoreboard-team { margin-bottom: 18px; }
+        .scoreboard-team-label {
+            font-family: 'Bangers', cursive;
+            font-size: 18px;
+            padding: 4px 10px;
+            display: inline-block;
+            margin-bottom: 8px;
+            border: 2px solid var(--hk-pink);
+            border-radius: 6px;
+        }
+        .scoreboard-team-label.you { background: #90ee90; color: #333; }
+        .scoreboard-team-label.them { background: var(--hk-pink); color: #fff; }
+        .scoreboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .scoreboard-table th {
+            text-align: left;
+            color: var(--hk-red);
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 6px 8px;
+            border-bottom: 2px solid var(--hk-pink);
+        }
+        .scoreboard-table td {
+            padding: 8px;
+            border-bottom: 1px solid #2a2a2a;
+            color: #fff;
+            vertical-align: middle;
+        }
+        .scoreboard-table tr.is-you {
+            background: rgba(144, 238, 144, 0.15);
+            outline: 2px solid #90ee90;
+            outline-offset: -2px;
+        }
+        .scoreboard-table tr.is-you td:first-child .sb-player-name::after {
+            content: " (YOU 🐱)";
+            color: var(--hk-pink);
+            font-weight: bold;
+        }
+        .sb-player { display: flex; align-items: center; gap: 8px; }
+        .sb-player-name { font-weight: bold; }
+        .sb-agent-icon {
+            width: 28px;
+            height: 28px;
+            border: 1px solid var(--hk-gold);
+            flex-shrink: 0;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .sb-agent-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .modal-stat-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .modal-stat-strip .stat-card { padding: 10px; }
+        .modal-stat-strip .stat-value { font-size: 24px; }
+        .hs-badge { display: inline-block; font-size: 14px; margin-left: 4px; }
+
+        /* ============================================================
+           ACHIEVEMENT POPUPS
+           ============================================================ */
+        .achievement-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+        .achievement {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid var(--hk-pink);
+            padding: 10px 20px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.1rem;
+            color: var(--hk-red);
+            animation: achievementSlide 0.6s ease forwards;
+            box-shadow: 0 4px 16px rgba(255, 105, 180, 0.3);
+            pointer-events: auto;
+            cursor: default;
+            white-space: nowrap;
+            border-radius: 10px;
+        }
+        .achievement .ach-emoji { font-size: 1.6rem; margin-right: 10px; }
+        @keyframes achievementSlide {
+            0% { transform: translateX(120%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        .achievement.fade-out { animation: achievementFade 0.5s ease forwards; }
+        @keyframes achievementFade {
+            0% { transform: translateX(0); opacity: 1; }
+            100% { transform: translateX(120%); opacity: 0; }
+        }
+
+        /* ============================================================
+           FAKE CHAT OVERLAY
+           ============================================================ */
+        .chat-overlay {
+            position: fixed;
+            bottom: 120px;
+            left: 16px;
+            z-index: 300;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid var(--hk-pink);
+            padding: 8px 14px;
+            font-family: 'Comic Neue', cursive;
+            font-size: 0.85rem;
+            color: #333;
+            max-width: 280px;
+            border-radius: 10px;
+            animation: chatFade 0.3s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
+        }
+        .chat-overlay .chat-name { color: var(--hk-red); font-weight: bold; }
+        .chat-overlay .chat-msg { color: #333; }
+        @keyframes chatFade {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================================
+           FAKE BAN OVERLAY
+           ============================================================ */
+        .ban-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 240, 245, 0.98);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .ban-overlay .ban-icon {
+            font-size: 8rem;
+            animation: banSpin 2s linear infinite;
+        }
+        .ban-overlay .ban-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 2.2rem;
+            color: var(--hk-red);
+            text-shadow: 0 0 20px var(--hk-pink);
+            margin-top: 20px;
+        }
+        .ban-overlay .ban-sub {
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.2rem;
+            color: var(--hk-pink);
+            margin-top: 10px;
+        }
+        .ban-overlay .ban-dismiss {
+            margin-top: 30px;
+            padding: 12px 30px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            background: var(--hk-red);
+            color: #fff;
+            border: 3px solid var(--hk-pink);
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .ban-overlay .ban-dismiss:active { transform: scale(0.95); }
+        @keyframes banSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* ---- SCREEN SHAKE ---- */
+        .shake { animation: screenShake 0.3s ease; }
+        @keyframes screenShake {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            20% { transform: translate(-8px, 6px) rotate(-1deg); }
+            40% { transform: translate(7px, -5px) rotate(1deg); }
+            60% { transform: translate(-5px, 4px) rotate(-0.5deg); }
+            80% { transform: translate(4px, -3px) rotate(0.5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero-right { grid-template-columns: 1fr 1fr; }
+            .content-grid { grid-template-columns: 1fr; }
+            .match-body { flex-direction: column; }
+            .match-stats { justify-content: space-around; }
+            .controls-row { flex-direction: column; align-items: stretch; }
+            .controls input, .controls select { width: 100%; min-width: unset; }
+            .site-logo { font-size: 2rem; }
+            .hero::before { font-size: 14px; top: -16px; right: 10px; padding: 2px 10px; }
+            .achievement { font-size: 0.9rem; padding: 6px 14px; }
+            .chat-overlay { max-width: 200px; font-size: 0.75rem; bottom: 100px; left: 8px; }
+            .ban-overlay .ban-title { font-size: 1.4rem; }
+            .ban-overlay .ban-icon { font-size: 5rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-right { grid-template-columns: 1fr 1fr; }
+            .stat-value { font-size: 26px; }
+            .match-details h3 { font-size: 18px; }
+            .modal-stat-strip { grid-template-columns: repeat(2, 1fr); }
+            .scoreboard-table { font-size: 11px; }
+            .sb-agent-icon { width: 22px; height: 22px; }
+            .troll-badge { font-size: 11px; padding: 2px 8px; right: 8px; top: -10px; }
+        }
+
+        /* ---- MISS POPUP ---- */
+        .miss-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            border: 5px solid var(--hk-pink);
+            padding: 30px 40px;
+            z-index: 9999;
+            text-align: center;
+            color: var(--hk-red);
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            box-shadow: 0 0 50px rgba(255, 105, 180, 0.5);
+            border-radius: 20px;
+            max-width: 90%;
+        }
+        .miss-popup button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            background: var(--hk-red);
+            border: 3px solid var(--hk-pink);
+            cursor: pointer;
+            color: #fff;
+            border-radius: 10px;
+        }
+        .miss-popup button:active { transform: scale(0.95); }
+
+        /* ---- CURSOR TRAIL ---- */
+        .trail-emoji {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1.6rem;
+            z-index: 99999;
+            opacity: 0.8;
+            animation: trailFade 0.8s ease forwards;
+        }
+        @keyframes trailFade {
+            0% { opacity: 0.9; transform: scale(1) rotate(0deg); }
+            100% { opacity: 0; transform: scale(0.3) rotate(360deg) translateY(-40px); }
+        }
+
+        /* scrollbar */
+        ::-webkit-scrollbar { width: 10px; background: var(--hk-soft-pink); }
+        ::-webkit-scrollbar-track { background: #fff; }
+        ::-webkit-scrollbar-thumb { background: var(--hk-pink); border: 2px solid #fff; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--hk-red); }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    HELLO KITTY THEME BACKGROUND
+    ============================================================ -->
+    <div class="hello-kitty-bg" id="helloKittyBg">
+        <div class="hk-stripes"></div>
+        <div class="hk-bow-pattern"></div>
+        <div class="hk-floaters" id="hkFloaters"></div>
+        <div id="hkParticles"></div>
+    </div>
+
+    <!-- ============================================================
+    TROLL UI ELEMENTS
+    ============================================================ -->
+
+    <!-- VANGUARD BANNER -->
+    <div class="vanguard-banner" id="vanguardBanner">⚠️ VANGUARD ANTI-CHEAT: ACCOUNT UNDER INVESTIGATION ⚠️</div>
+
+    <!-- AD BAR -->
+    <div class="ad-bar" id="adBar">💰 FREE VP — CLICK HERE FOR 10000 VALORANT POINTS 💰</div>
+
+    <!-- TIPS BAR -->
+    <div class="tips-bar" id="tipsBar"><span>💡 PRO TIP: Don't suck at the game</span></div>
+
+    <!-- FAKE CHAT OVERLAY -->
+    <div id="chatOverlay" class="chat-overlay" style="display:none;">
+        <span class="chat-name">JettDiff:</span>
+        <span class="chat-msg">wow this player is actually terrible</span>
+    </div>
+
+    <!-- ACHIEVEMENT CONTAINER -->
+    <div class="achievement-container" id="achievementContainer"></div>
+
+    <header id="header">
+        <div class="site-logo">🐱 VALORANT STATS (Hello Kitty Edition) 🐱</div>
+    </header>
+
+    <div class="marquee">
+        <marquee behavior="scroll" direction="left">★★★ WELCOME TO THE CUTEST VALORANT STATS TRACKER ★★★ 100% KAWAII ACCURATE ★★★ NO BANS ★★★ 🐱🎀💖🐱🎀💖🐱🎀💖🐱🎀💖</marquee>
+    </div>
+
+    <div class="controls">
+        <div class="controls-row">
+            <input type="text" id="searchInput" placeholder="Name#TAG" value="TenZ#NA1" />
+            <select id="regionSelect">
+                <option value="na">NA</option>
+                <option value="eu">EU</option>
+                <option value="ap" selected>AP</option>
+                <option value="kr">KR</option>
+            </select>
+            <button id="searchBtn">🐱 CLICK FOR STATS! 🐱</button>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:16px; justify-content:center; margin-top:4px;">
+            <span class="search-status" id="statusMsg">🔍 ready</span>
+            <span style="color:var(--hk-red); font-size:0.9rem; background:rgba(255,255,255,0.9); padding:2px 10px; border-radius:12px; border:2px solid var(--hk-light-pink);">⚡ COMP ONLY · CURRENT ACT</span>
+        </div>
+    </div>
+
+    <!-- STATS RENDER TARGET -->
+    <div id="profileContent">
+        <div class="status-box">
+            <div class="loader"></div>
+            <p>Bribing Riot servers with cat treats...</p>
+        </div>
+    </div>
+
+    <button id="reportSelfBtn">🐱 REPORT SELF 🐱</button>
+    <div id="monkey">🐱</div>
+
+    <!-- MISS POPUP (hidden by default) -->
+    <div id="missPopup" class="miss-popup" style="display:none;">
+        <div>😹 nicee aimm aimlabs is free 😹</div>
+        <button id="popupOkBtn">OK, I'LL CLICK NOW (Im AHH)</button>
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT — full tracker logic + troll enhancements + Hello Kitty BG
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ─── HELLO KITTY BACKGROUND GENERATOR ─────────────────
+            function generateHelloKittyBackground() {
+                const floatersContainer = document.getElementById('hkFloaters');
+                const particlesContainer = document.getElementById('hkParticles');
+                
+                // Hello Kitty SVG face generator
+                function createHelloKittySVG(size) {
+                    return `
+                    <svg width="${size}" height="${size * 0.85}" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M30 35 L20 10 L45 28 Z" fill="#fff" stroke="#333" stroke-width="2.5" stroke-linejoin="round"/>
+                        <path d="M90 35 L100 10 L75 28 Z" fill="#fff" stroke="#333" stroke-width="2.5" stroke-linejoin="round"/>
+                        <ellipse cx="60" cy="52" rx="38" ry="35" fill="#fff" stroke="#333" stroke-width="2.5"/>
+                        <ellipse cx="47" cy="48" rx="3.5" ry="4.5" fill="#333"/>
+                        <ellipse cx="73" cy="48" rx="3.5" ry="4.5" fill="#333"/>
+                        <ellipse cx="60" cy="56" rx="3" ry="2.2" fill="#ffd700"/>
+                        <line x1="10" y1="50" x2="42" y2="54" stroke="#333" stroke-width="1.8" stroke-linecap="round"/>
+                        <line x1="12" y1="58" x2="42" y2="58" stroke="#333" stroke-width="1.8" stroke-linecap="round"/>
+                        <line x1="10" y1="66" x2="42" y2="62" stroke="#333" stroke-width="1.8" stroke-linecap="round"/>
+                        <line x1="110" y1="50" x2="78" y2="54" stroke="#333" stroke-width="1.8" stroke-linecap="round"/>
+                        <line x1="108" y1="58" x2="78" y2="58" stroke="#333" stroke-width="1.8" stroke-linecap="round"/>
+                        <line x1="110" y1="66" x2="78" y2="62" stroke="#333" stroke-width="1.8" stroke-linecap="round"/>
+                        <ellipse cx="82" cy="28" rx="10" ry="7" fill="#e4002b" stroke="#b0001f" stroke-width="1.5" transform="rotate(-20 82 28)"/>
+                        <ellipse cx="96" cy="32" rx="10" ry="7" fill="#e4002b" stroke="#b0001f" stroke-width="1.5" transform="rotate(20 96 32)"/>
+                        <circle cx="89" cy="30" r="4" fill="#ff1744" stroke="#b0001f" stroke-width="1.5"/>
+                    </svg>`;
+                }
+
+                // Bow SVG
+                function createBowSVG(size) {
+                    return `
+                    <svg width="${size}" height="${size * 0.6}" viewBox="0 0 60 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="20" cy="18" rx="18" ry="14" fill="#e4002b" stroke="#b0001f" stroke-width="2" transform="rotate(-15 20 18)"/>
+                        <ellipse cx="40" cy="18" rx="18" ry="14" fill="#e4002b" stroke="#b0001f" stroke-width="2" transform="rotate(15 40 18)"/>
+                        <circle cx="30" cy="18" r="6" fill="#ff1744" stroke="#b0001f" stroke-width="2"/>
+                    </svg>`;
+                }
+
+                // Create floating Hello Kitty faces
+                const numFaces = 8;
+                for (let i = 0; i < numFaces; i++) {
+                    const floater = document.createElement('div');
+                    floater.className = 'hk-floater';
+                    const size = 40 + Math.random() * 60;
+                    const left = Math.random() * 90;
+                    const top = Math.random() * 85;
+                    const opacity = 0.08 + Math.random() * 0.12;
+                    const rotation = -15 + Math.random() * 30;
+                    const duration = 5 + Math.random() * 5;
+                    const delay = Math.random() * 3;
+                    
+                    floater.style.cssText = `
+                        left: ${left}%;
+                        top: ${top}%;
+                        --hk-opacity: ${opacity};
+                        --hk-rot: ${rotation}deg;
+                        --hk-dur: ${duration}s;
+                        --hk-delay: ${delay}s;
+                    `;
+                    
+                    // Alternate between faces and bows
+                    if (i % 3 === 0) {
+                        floater.innerHTML = createBowSVG(size * 0.5);
+                    } else {
+                        floater.innerHTML = createHelloKittySVG(size);
+                    }
+                    
+                    floatersContainer.appendChild(floater);
+                }
+
+                // Create floating particles (hearts, stars, flowers)
+                const particles = ['💖', '💕', '🎀', '🌸', '⭐', '✨', '💎', '💗'];
+                const numParticles = 20;
+                for (let i = 0; i < numParticles; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'hk-particle';
+                    const emoji = particles[Math.floor(Math.random() * particles.length)];
+                    const size = 14 + Math.random() * 20;
+                    const left = Math.random() * 95;
+                    const duration = 10 + Math.random() * 15;
+                    const delay = Math.random() * 20;
+                    const opacity = 0.2 + Math.random() * 0.3;
+                    
+                    particle.style.cssText = `
+                        left: ${left}%;
+                        --p-size: ${size}px;
+                        --p-dur: ${duration}s;
+                        --p-delay: ${delay}s;
+                        --p-opacity: ${opacity};
+                    `;
+                    particle.textContent = emoji;
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            // Initialize the Hello Kitty background
+            generateHelloKittyBackground();
+
+            // ─── API ────────────────────────────────────────────────
+            const API_BASE = 'https://api.henrikdev.xyz/valorant';
+            const API_KEY = 'HDEV-22b27376-cdbd-40df-8225-1e1ca84d2c44';
+
+            // ─── DOM refs ──────────────────────────────────────────
+            const searchBtn = document.getElementById('searchBtn');
+            const searchInput = document.getElementById('searchInput');
+            const regionSelect = document.getElementById('regionSelect');
+            const profileContent = document.getElementById('profileContent');
+            const statusMsg = document.getElementById('statusMsg');
+            const missPopup = document.getElementById('missPopup');
+            const popupOkBtn = document.getElementById('popupOkBtn');
+            const vanguardBanner = document.getElementById('vanguardBanner');
+            const adBar = document.getElementById('adBar');
+            const tipsBar = document.getElementById('tipsBar');
+            const chatOverlay = document.getElementById('chatOverlay');
+            const achievementContainer = document.getElementById('achievementContainer');
+            const reportSelfBtn = document.getElementById('reportSelfBtn');
+
+            // ─── State ─────────────────────────────────────────────
+            let perfChart = null;
+            let lastAccount = null;
+            let lastMmr = null;
+            let lastMatchesAll = [];
+            let lastDisplayMatches = [];
+            let lastName = '';
+            let lastTag = '';
+            let lastActiveRegion = '';
+            let lastIsPrivate = false;
+            let currentPlayerData = null;
+
+            // ─── Miss counter ──────────────────────────────────────
+            let missCount = 0;
+            let isStatic = false;
+
+            // ─── Tips ──────────────────────────────────────────────
+            const PRO_TIPS = [
+                "💡 PRO TIP: Don't suck at the game",
+                "💡 PRO TIP: Aim at the enemies, not your teammates",
+                "💡 PRO TIP: Uninstall if you're below Gold",
+                "💡 PRO TIP: Your rank is a reflection of your soul",
+                "💡 PRO TIP: Try using your monitor next time",
+                "💡 PRO TIP: Jett dash doesn't fix bad aim",
+                "💡 PRO TIP: Your mom called, she wants her PC back",
+                "💡 PRO TIP: The enemy team is not your friend",
+                "💡 PRO TIP: Buy a better gaming chair",
+                "💡 PRO TIP: Maybe Valorant isn't for you",
+                "💡 PRO TIP: 0-10 is not a good look",
+                "💡 PRO TIP: Try playing with your monitor on",
+                "💡 PRO TIP: Your sensitivity is too high (and your IQ too low)",
+                "💡 PRO TIP: The spike goes in the green thing",
+                "💡 PRO TIP: You're the reason we can't have nice things",
+                "💡 PRO TIP: Your KD is lower than your GPA",
+                "💡 PRO TIP: Please touch grass after this game",
+                "💡 PRO TIP: Your teammates are not your enemies (usually)",
+                "💡 PRO TIP: That was a 1v5, you're not that guy",
+                "💡 PRO TIP: The minimap exists for a reason"
+            ];
+            let tipIndex = 0;
+
+            // ─── Chat messages ─────────────────────────────────────
+            const CHAT_MESSAGES = [
+                { name: "JettDiff", msg: "wow this player is actually terrible" },
+                { name: "SageMain", msg: "heal diff? more like skill diff" },
+                { name: "ReynaOneTrick", msg: "0 kills? are you okay?" },
+                { name: "ChamberMain", msg: "still playing chamber in 2024? 💀" },
+                { name: "PhoenixUlt", msg: "this guy is actually griefing" },
+                { name: "ViperMain", msg: "your aim is worse than my grandma's" },
+                { name: "SkyeDog", msg: "bro thinks he's TenZ 💀" },
+                { name: "YoruMain", msg: "why are you even in this lobby" },
+                { name: "Brimstone", msg: "I've seen better aim in a wheelchair" },
+                { name: "CypherMain", msg: "enemy team is farming you" },
+                { name: "KayoMain", msg: "0 impact, 0 kills, 0 brain cells" },
+                { name: "RazeMain", msg: "you're the reason we lost" },
+                { name: "KilljoyMain", msg: "please uninstall and never return" },
+                { name: "BreachMain", msg: "your positioning is atrocious" },
+                { name: "SovaMain", msg: "recon arrow? more like recon skill issue" }
+            ];
+
+            // ─── Achievements ──────────────────────────────────────
+            const ACHIEVEMENTS = [
+                { emoji: "🐱", text: "Kitty Level Skill" },
+                { emoji: "🧠", text: "0 Brain Cells" },
+                { emoji: "🎀", text: "Missing: Your Aim" },
+                { emoji: "📉", text: "Negative Impact" },
+                { emoji: "🤡", text: "Clown Performance" },
+                { emoji: "🗑️", text: "Dumpster Fire" },
+                { emoji: "😭", text: "Cry More" },
+                { emoji: "🚨", text: "Fraud Alert" },
+                { emoji: "🪦", text: "Rest In Pieces" },
+                { emoji: "🔥", text: "You're On Fire (in a bad way)" },
+                { emoji: "🌸", text: "Flower Power Failure" },
+                { emoji: "💔", text: "Your Teammates Hate You" },
+                { emoji: "👶", text: "Baby Rage" },
+                { emoji: "🐌", text: "Slower Than A Snail" },
+                { emoji: "🎮", text: "Uninstall Recommended" }
+            ];
+
+            // ─── Roast Engine ──────────────────────────────────────
+            const KD_ROASTS = [
+                { threshold: 0.3, messages: ["Bro you're literally feeding 💀", "0.3 K/D? Are you throwing?", "Negative impact: the player"] },
+                { threshold: 0.6, messages: ["You're just donating at this point 💀", "K/D so low it's underground 📉", "Enemy team loves you (free kills)"] },
+                { threshold: 0.9, messages: ["Barely positive, barely alive 😬", "1.0 K/D is the average of a bot 🤖", "You exist, that's about it"] },
+                { threshold: 1.2, messages: ["Average at best, like your life 👎", "Decent but still mid 😐", "You're okay I guess (derogatory)"] },
+                { threshold: 1.6, messages: ["Okay I see you (slightly) 👀", "Not terrible, not great 🤷", "You're improving (still bad though)"] },
+                { threshold: 999, messages: ["Sweaty tryhard detected 🏋️", "Touch grass challenge: impossible 🌿", "Your K/D is suspiciously high 🚨"] }
+            ];
+
+            const ACS_ROASTS = [
+                { threshold: 100, messages: ["Bot aim detected 🤖", "ACS lower than my IQ 📉", "Just uninstall already"] },
+                { threshold: 150, messages: ["What do you even do? 🤔", "Negative impact on the server 🗑️", "Your teammates are reporting you"] },
+                { threshold: 200, messages: ["Mediocre at best 😴", "You exist, I guess 🤷", "Room for improvement (a lot)"] },
+                { threshold: 250, messages: ["Decent but still mid 😐", "You're trying (and failing) 💪", "Average: the player"] },
+                { threshold: 300, messages: ["Okay I see you 👀", "Not terrible, not great 🤷", "Slightly above average (wow)"] },
+                { threshold: 999, messages: ["Sweaty tryhard detected 🏋️", "Do you even sleep? 💤", "Suspect performance 🚨"] }
+            ];
+
+            const WR_ROASTS = [
+                { threshold: 30, messages: ["Negative winrate, negative brain cells 🧠", "You're actively throwing 📉", "Your teammates are suffering"] },
+                { threshold: 45, messages: ["Below average, like your life 👎", "Can't win can't lose (mostly lose) 😬", "You're trying (not hard enough)"] },
+                { threshold: 55, messages: ["Average at best 😐", "50/50 chance of being useless 🤷", "Mediocrity: the player"] },
+                { threshold: 65, messages: ["Decent but still mid 👀", "You're okay I guess 🤷", "Slightly above average (wow)"] },
+                { threshold: 999, messages: ["Sweaty tryhard detected 🏋️", "Do you even lose? 💀", "Suspect winrate 🚨"] }
+            ];
+
+            const LEVEL_ROASTS = [
+                { threshold: 10, messages: ["Fresh account, fresh trash 🗑️", "New player, same bad aim 🤖", "You're still learning (and failing)"] },
+                { threshold: 30, messages: ["Still bad, but with more hours 😬", "You've been playing for a while and still suck 📉", "Time doesn't equal skill, clearly"] },
+                { threshold: 50, messages: ["Okay you play a lot but aren't good 😐", "All that time, still average 🤷", "You're dedicated (to being mid)"] },
+                { threshold: 80, messages: ["You're decent, I guess 👀", "Good player, bad luck 🤷", "Above average: the story"] },
+                { threshold: 120, messages: ["Sweaty tryhard detected 🏋️", "Touch grass challenge: impossible 🌿", "You have no life but you're good 💀"] },
+                { threshold: 999, messages: ["Grinder alert 🚨", "Do you even sleep? 💤", "Maximum effort, minimum life"] }
+            ];
+
+            const HS_ROASTS = [
+                { threshold: 10, messages: ["Headshots? What are those? 💀", "You're aiming at the floor 📉", "Body shots only (and missing)"] },
+                { threshold: 15, messages: ["You found the head by accident 🎯", "Barely hitting heads 😬", "Your aim is questionable"] },
+                { threshold: 20, messages: ["Average headshot rate 😐", "You're okay I guess 🤷", "Sometimes you hit heads (rarely)"] },
+                { threshold: 25, messages: ["Decent aim, decent life 👀", "You're getting there 🤷", "Above average (wow)"] },
+                { threshold: 35, messages: ["Clean aim detected 🚨", "You're actually good (sus) 💀", "Headshot machine 🎯"] },
+                { threshold: 999, messages: ["Suspiciously good aim 🚨", "Are you cheating? 🤔", "Your HS% is insane 💀"] }
+            ];
+
+            function getRoast(category, value) {
+                let roasts;
+                switch (category) {
+                    case 'kd': roasts = KD_ROASTS; break;
+                    case 'acs': roasts = ACS_ROASTS; break;
+                    case 'wr': roasts = WR_ROASTS; break;
+                    case 'level': roasts = LEVEL_ROASTS; break;
+                    case 'hs': roasts = HS_ROASTS; break;
+                    default: return "No roast available";
+                }
+                for (const tier of roasts) {
+                    if (value <= tier.threshold) {
+                        return tier.messages[Math.floor(Math.random() * tier.messages.length)];
+                    }
+                }
+                return roasts[roasts.length - 1].messages[Math.floor(Math.random() * roasts[roasts.length - 1].messages.length)];
+            }
+
+            // ─── Verdict System ─────────────────────────────────────
+            function calculateVerdict(kd, acs, wr, level, hs) {
+                let score = 0;
+                if (kd >= 1.5) score += 25;
+                else if (kd >= 1.2) score += 20;
+                else if (kd >= 1.0) score += 15;
+                else if (kd >= 0.8) score += 10;
+                else if (kd >= 0.6) score += 5;
+
+                if (acs >= 300) score += 25;
+                else if (acs >= 250) score += 20;
+                else if (acs >= 200) score += 15;
+                else if (acs >= 150) score += 10;
+                else if (acs >= 100) score += 5;
+
+                if (wr >= 65) score += 25;
+                else if (wr >= 55) score += 20;
+                else if (wr >= 50) score += 15;
+                else if (wr >= 45) score += 10;
+                else if (wr >= 40) score += 5;
+
+                if (hs >= 35) score += 25;
+                else if (hs >= 25) score += 20;
+                else if (hs >= 20) score += 15;
+                else if (hs >= 15) score += 10;
+                else if (hs >= 10) score += 5;
+
+                if (level >= 100) score += 10;
+                else if (level >= 70) score += 7;
+                else if (level >= 40) score += 4;
+                else if (level >= 20) score += 2;
+
+                let verdict, roast, cssClass;
+                if (score >= 85) {
+                    verdict = "SUSPICIOUSLY DECENT";
+                    roast = "You're actually good... sus 🚨 Are you smurfing or just having a good day?";
+                    cssClass = "sus";
+                } else if (score >= 70) {
+                    verdict = "SOLID PERFORMER";
+                    roast = "You're actually not terrible. Your teammates are still reporting you though.";
+                    cssClass = "good";
+                } else if (score >= 55) {
+                    verdict = "MEDIOCRE AT BEST";
+                    roast = "You exist. That's about it. Your impact is questionable.";
+                    cssClass = "mid";
+                } else if (score >= 40) {
+                    verdict = "UNDERWHELMING";
+                    roast = "Your stats are bad and you should feel bad. Uninstall is an option.";
+                    cssClass = "fire";
+                } else if (score >= 25) {
+                    verdict = "CERTIFIED DUMPSTER FIRE";
+                    roast = "🔥 You are genuinely bad. Your teammates are crying. Please seek help.";
+                    cssClass = "fire";
+                } else {
+                    verdict = "ABSOLUTE TRASH";
+                    roast = "🗑️ You are the worst player I've ever seen. How do you even turn on the PC?";
+                    cssClass = "fire";
+                }
+                return { score, verdict, roast, cssClass };
+            }
+
+            // ─── Troll badge generator ─────────────────────────────
+            const WIN_BADGES = ["CARRIED", "GOD MODE", "EZ CLAP", "SMURFING", "UNSTOPPABLE", "CLUTCH KING", "HARD CARRY", "BEAST MODE", "DIFFING", "1V9", "CLEAN", "IMPROVING"];
+            const LOSS_BADGES = ["REPORTED", "INTING", "USELESS", "BOT", "THROWING", "GRIEFING", "FREE KILLS", "NEGATIVE IMPACT", "CLOWN", "0 BRAIN CELLS", "PLEASE UNINSTALL", "FRAUD"];
+
+            function getBadge(won, acs) {
+                const pool = won ? WIN_BADGES : LOSS_BADGES;
+                let badge = pool[Math.floor(Math.random() * pool.length)];
+                if (won && acs > 300) badge = "GOD MODE";
+                else if (won && acs > 250) badge = "HARD CARRY";
+                else if (won && acs < 150) badge = "PURPLE" + (Math.random() > 0.5 ? " (boosted)" : " (lucky)");
+                else if (!won && acs < 80) badge = "INTING" + (Math.random() > 0.5 ? " HARD" : " EXTREME");
+                else if (!won && acs > 250) badge = "GRIEFING (good player bad luck)";
+                return badge;
+            }
+
+            // ─── Agent roasts ──────────────────────────────────────
+            const AGENT_ROASTS = {
+                "Jett": "Instalock Jett, zero carry potential 💀",
+                "Reyna": "Reyna main with no aim 👁️",
+                "Chamber": "Still playing Chamber in 2024? 💀",
+                "Sage": "Sage main = heals for self only",
+                "Phoenix": "Phoenix ult = run it down mid",
+                "Raze": "Raze main = boom boom brain dead",
+                "Sova": "Sova main = wallhacks but still misses",
+                "Viper": "Viper main = lineups but no kills",
+                "Cypher": "Cypher main = camera simulator",
+                "Breach": "Breach main = stun yourself too",
+                "Killjoy": "Killjoy main = turret carries you",
+                "Skye": "Skye main = dog does more than you",
+                "Yoru": "Yoru main = tp into enemy team",
+                "Astra": "Astra main = map simulator",
+                "Omen": "Omen main = tp off the map",
+                "Brimstone": "Brimstone main = old man gaming",
+                "Kay/O": "Kay/O main = full utility, zero kills",
+                "Neon": "Neon main = run fast, die fast",
+                "Fade": "Fade main = highlight yourself",
+                "Harbor": "Harbor main = water you doing?",
+                "Gekko": "Gekko main = pet simulator",
+                "Deadlock": "Deadlock main = lockdown but locked down"
+            };
+
+            function getAgentRoast(agent) {
+                for (const [key, roast] of Object.entries(AGENT_ROASTS)) {
+                    if (agent.toLowerCase().includes(key.toLowerCase())) return roast;
+                }
+                return agent + " main = questionable life choices 🤔";
+            }
+
+            // ─── UI render helpers ──────────────────────────────
+            function renderLoading() {
+                profileContent.innerHTML = `
+              <div class="status-box">
+                <div class="loader"></div>
+                <p>Stealing stats from Riot's basement...</p>
+              </div>
+            `;
+                statusMsg.textContent = '⏳ loading...';
+            }
+
+            function renderError(msg) {
+                profileContent.innerHTML = `
+              <div class="status-box">
+                <div class="error-text">⚠️ ERROR 404: SKILL NOT FOUND ⚠️</div>
+                <p style="margin-top:20px; color:var(--hk-pink);">${msg}</p>
+                <p style="margin-top:10px; font-size:12px; color:#888;">Tip: use Name#TAG (e.g. TenZ#NA1)</p>
+              </div>
+            `;
+                statusMsg.textContent = '❌ error';
+                triggerScreenShake();
+            }
+
+            function renderNoMatches() {
+                return `
+              <div class="status-box" style="padding:40px; color:var(--hk-pink);">
+                ⚠️ NO RECENT MATCHES ⚠️
+                <br><span style="font-size:14px; color:var(--hk-red);">
+                  Profile is private, API timed out, or no comp matches in current act.
+                </span>
+              </div>
+            `;
+            }
+
+            // ─── Helpers ──────────────────────────────────────────
+            function getHeaders() {
+                return { 'Authorization': API_KEY };
+            }
+
+            function formatSeasonLabel(seasonId) {
+                if (!seasonId) return 'Unknown Season';
+                let m = seasonId.match(/^([eE])(\d+)[aA](\d+)$/);
+                if (m) return `Episode ${m[2]} Act ${m[3]}`;
+                m = seasonId.match(/^([vV])(\d{2,4})[aA](\d+)$/);
+                if (m) {
+                    let year = parseInt(m[2]);
+                    if (year < 100) year += 2000;
+                    return `Season ${year} Act ${m[3]}`;
+                }
+                m = seasonId.match(/^season[- ](\d{4})[- ]act[- ](\d+)$/i);
+                if (m) return `Season ${m[1]} Act ${m[2]}`;
+                m = seasonId.match(/^season\s*(\d{4})\s*act\s*(\d+)$/i);
+                if (m) return `Season ${m[1]} Act ${m[2]}`;
+                return seasonId;
+            }
+
+            function getSeasonSortKey(id) {
+                let m = id.match(/^([eE])(\d+)[aA](\d+)$/);
+                if (m) return { primary: parseInt(m[2], 10), secondary: parseInt(m[3], 10) };
+                m = id.match(/^([vV])(\d{2,4})[aA](\d+)$/);
+                if (m) {
+                    let year = parseInt(m[2]);
+                    if (year < 100) year += 2000;
+                    return { primary: year, secondary: parseInt(m[3], 10) };
+                }
+                m = id.match(/^season[- ](\d{4})[- ]act[- ](\d+)$/i);
+                if (m) return { primary: parseInt(m[1], 10), secondary: parseInt(m[2], 10) };
+                return { primary: 0, secondary: 0, raw: id };
+            }
+
+            function sortSeasonIds(seasons) {
+                return Array.from(seasons).sort((a, b) => {
+                    const ka = getSeasonSortKey(a);
+                    const kb = getSeasonSortKey(b);
+                    if (ka.primary !== kb.primary) return ka.primary - kb.primary;
+                    if (ka.secondary !== kb.secondary) return ka.secondary - kb.secondary;
+                    return a.localeCompare(b);
+                });
+            }
+
+            function formatTimeAgo(date) {
+                if (!date || isNaN(date.getTime())) return 'some time ago';
+                const sec = Math.floor((Date.now() - date.getTime()) / 1000);
+                if (sec < 60) return 'just now';
+                const min = Math.floor(sec / 60);
+                if (min < 60) return `${min}m ago`;
+                const hrs = Math.floor(min / 60);
+                if (hrs < 24) return `${hrs}h ago`;
+                const days = Math.floor(hrs / 24);
+                return `${days}d ago`;
+            }
+
+            function getTrollRankName(rankName) {
+                if (!rankName) return 'Certified Bot';
+                const r = rankName.toLowerCase();
+                if (r.includes('radiant')) return 'Jobless Rank';
+                if (r.includes('immortal')) return 'Sweaty Tryhard';
+                if (r.includes('ascendant')) return 'Elo Boosted';
+                if (r.includes('diamond')) return 'Hardstuck Trash';
+                if (r.includes('platinum')) return 'Gatekeeper Victim';
+                if (r.includes('gold')) return 'Average Mediocre';
+                if (r.includes('silver')) return 'Lobby Filler';
+                if (r.includes('bronze')) return 'Intentional Feeder';
+                if (r.includes('iron')) return 'Bot Account';
+                return 'Unranked Trash';
+            }
+
+            function safeGet(obj, path, fallback) {
+                try {
+                    const parts = path.split('.');
+                    let cur = obj;
+                    for (const p of parts) {
+                        if (cur === null || cur === undefined) return fallback;
+                        cur = cur[p];
+                    }
+                    return cur !== undefined ? cur : fallback;
+                } catch (_) { return fallback; }
+            }
+
+            function findPlayerInMatch(match, name, tag) {
+                const ln = name.toLowerCase(), lt = tag.toLowerCase();
+                const all = match.players?.all_players || match.players || [];
+                return all.find(p => {
+                    const pn = (p.gameName || p.name || '').toLowerCase();
+                    const pt = (p.tag || p.tagLine || '').toLowerCase();
+                    return pn === ln && pt === lt;
+                });
+            }
+
+            function playerWonMatch(match, player) {
+                if (!match.teams || !player?.team) return false;
+                const t = player.team.toLowerCase();
+                const blue = match.teams.blue || {};
+                const red = match.teams.red || {};
+                if (t === 'blue') return !!blue.has_won;
+                if (t === 'red') return !!red.has_won;
+                return false;
+            }
+
+            function getTeamScores(match, player) {
+                if (!match.teams || !player?.team) return { teamScore: 0, enemyScore: 0 };
+                const t = player.team.toLowerCase();
+                const blue = match.teams.blue || {};
+                const red = match.teams.red || {};
+                if (t === 'blue') return { teamScore: blue.rounds_won || 0, enemyScore: red.rounds_won || 0 };
+                return { teamScore: red.rounds_won || 0, enemyScore: blue.rounds_won || 0 };
+            }
+
+            // ─── Filter ──────────────────────────────────────
+            function getFilteredMatches() {
+                if (!lastMatchesAll.length) return [];
+                const currentSeasonId = getCurrentSeasonId();
+                let filtered = lastMatchesAll.filter(m => {
+                    const queue = (m.metadata?.queue || '').toLowerCase();
+                    const mode = (m.metadata?.mode || '').toLowerCase();
+                    const isComp = queue === 'competitive' || mode === 'competitive';
+                    const season = m.metadata?.season || m.metadata?.season_id;
+                    return isComp && (currentSeasonId === 'all' || season === currentSeasonId);
+                });
+                if (filtered.length === 0) {
+                    filtered = lastMatchesAll.filter(m => {
+                        const queue = (m.metadata?.queue || '').toLowerCase();
+                        const mode = (m.metadata?.mode || '').toLowerCase();
+                        return queue === 'competitive' || mode === 'competitive';
+                    });
+                }
+                if (filtered.length === 0 && currentSeasonId !== 'all') {
+                    filtered = lastMatchesAll.filter(m => {
+                        const season = m.metadata?.season || m.metadata?.season_id;
+                        return season === currentSeasonId;
+                    });
+                }
+                if (filtered.length === 0) filtered = lastMatchesAll;
+                return filtered;
+            }
+
+            function getCurrentSeasonId() {
+                const reported = lastMmr?.current_data?.season || lastMmr?.current_data?.season_id;
+                if (reported) return reported;
+                const seasons = new Set();
+                if (Array.isArray(lastMatchesAll)) {
+                    for (const m of lastMatchesAll) {
+                        const s = m.metadata?.season || m.metadata?.season_id;
+                        if (s) seasons.add(s);
+                    }
+                }
+                if (lastMmr?.by_season) {
+                    for (const s of Object.keys(lastMmr.by_season)) seasons.add(s);
+                }
+                if (seasons.size === 0) return 'all';
+                const sorted = sortSeasonIds(seasons);
+                return sorted[sorted.length - 1];
+            }
+
+            function applyFiltersAndRender() {
+                if (!lastAccount) return;
+                const filtered = getFilteredMatches();
+                const selectedSeason = getCurrentSeasonId();
+                renderProfile(lastAccount, lastMmr, filtered, lastName, lastTag, lastIsPrivate, lastActiveRegion, selectedSeason);
+            }
+
+            // ─── Fetch ─────────────────────────────────────────────
+            async function fetchPlayerData() {
+                const query = searchInput.value.trim();
+                const region = regionSelect.value;
+                if (!query.includes('#')) {
+                    renderError('Format wrong noob! Use Name#TAG (e.g. TenZ#NA1)');
+                    return;
+                }
+                const parts = query.split('#');
+                const name = parts[0].trim();
+                const tag = parts.slice(1).join('#').trim();
+                if (!name || !tag) {
+                    renderError('Format wrong noob! Use Name#TAG');
+                    return;
+                }
+
+                searchBtn.disabled = true;
+                searchBtn.textContent = '🐱 LOADING... 🐱';
+                renderLoading();
+                statusMsg.textContent = '⏳ fetching...';
+
+                try {
+                    const accRes = await fetch(
+                        `${API_BASE}/v1/account/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`, {
+                            headers: getHeaders()
+                        }
+                    );
+                    if (!accRes.ok) {
+                        let errMsg = `Account not found (${accRes.status})`;
+                        try {
+                            const errJson = await accRes.json();
+                            if (errJson.errors?.[0]?.message) errMsg = errJson.errors[0].message;
+                        } catch (_) {}
+                        throw new Error(errMsg);
+                    }
+                    const accountData = (await accRes.json()).data;
+                    const puuid = accountData.puuid;
+
+                    let activeRegion = region;
+                    if (accountData.region && accountData.region !== 'global') {
+                        activeRegion = accountData.region;
+                    }
+
+                    let mmrData = null;
+                    try {
+                        const mmrRes = await fetch(
+                            `${API_BASE}/v2/mmr/${activeRegion}/${encodeURIComponent(name)}/${encodeURIComponent(tag)}`, {
+                                headers: getHeaders()
+                            }
+                        );
+                        if (mmrRes.ok) mmrData = (await mmrRes.json()).data;
+                    } catch (_) {}
+
+                    let matchesData = [];
+                    let isPrivate = false;
+                    try {
+                        const matchesRes = await fetch(
+                            `${API_BASE}/v3/by-puuid/matches/${activeRegion}/${puuid}?size=50`, {
+                                headers: getHeaders()
+                            }
+                        );
+                        if (matchesRes.ok) {
+                            const json = await matchesRes.json();
+                            if (Array.isArray(json)) matchesData = json;
+                            else if (json.data && Array.isArray(json.data)) matchesData = json.data;
+                        } else {
+                            const errText = await matchesRes.text();
+                            if (errText.toLowerCase().includes('private') || matchesRes.status === 400) {
+                                isPrivate = true;
+                            }
+                        }
+                    } catch (_) {}
+
+                    lastAccount = accountData;
+                    lastMmr = mmrData;
+                    lastMatchesAll = matchesData;
+                    lastName = name;
+                    lastTag = tag;
+                    lastActiveRegion = activeRegion;
+                    lastIsPrivate = isPrivate;
+
+                    currentPlayerData = {
+                        name: accountData.name || name,
+                        tag: accountData.tag || tag,
+                        region: activeRegion
+                    };
+
+                    applyFiltersAndRender();
+                    statusMsg.textContent = '✅ loaded';
+                    setTimeout(() => {
+                        showRandomAchievement();
+                        showRandomAchievement();
+                    }, 1500);
+
+                } catch (error) {
+                    console.error(error);
+                    renderError(error.message || 'Something went wrong. Try again.');
+                    statusMsg.textContent = '❌ error';
+                    triggerScreenShake();
+                } finally {
+                    searchBtn.disabled = false;
+                    searchBtn.textContent = '🐱 CLICK FOR STATS! 🐱';
+                }
+            }
+
+            // ─── Render Profile ──────────────────────────────────
+            function renderProfile(account, mmr, matches, name, tag, isPrivate, activeRegion, selectedSeason) {
+                let recentKills = 0, recentDeaths = 0, recentAssists = 0, recentACS = 0;
+                const agentStats = {};
+                const acsHistory = [];
+                const kdHistory = [];
+                let totalHS = 0, totalShots = 0;
+                let seasonWins = 0, seasonLosses = 0, seasonGames = 0;
+
+                if (Array.isArray(matches)) {
+                    for (const match of matches) {
+                        const player = findPlayerInMatch(match, name, tag);
+                        if (!player || !player.stats) continue;
+                        const k = player.stats.kills || 0;
+                        const d = player.stats.deaths || 0;
+                        const a = player.stats.assists || 0;
+                        const rounds = match.metadata?.rounds_played || 1;
+                        const acs = Math.round((player.stats.score || 0) / rounds);
+                        recentKills += k;
+                        recentDeaths += d;
+                        recentAssists += a;
+                        recentACS += acs;
+                        const hs = player.stats.headshots || 0;
+                        const bs = player.stats.bodyshots || 0;
+                        const ls = player.stats.legshots || 0;
+                        totalHS += hs;
+                        totalShots += (hs + bs + ls);
+                        const agentName = player.character || 'Unknown';
+                        if (!agentStats[agentName]) {
+                            agentStats[agentName] = { name: agentName, icon: safeGet(player, 'assets.agent.small', ''), kills: 0, deaths: 0, games: 0, wins: 0 };
+                        }
+                        agentStats[agentName].kills += k;
+                        agentStats[agentName].deaths += d;
+                        agentStats[agentName].games++;
+                        const won = playerWonMatch(match, player);
+                        if (won) agentStats[agentName].wins++;
+                        acsHistory.push(acs);
+                        const kd = d === 0 ? k : (k / d);
+                        kdHistory.push(parseFloat(kd.toFixed(2)));
+                    }
+                    for (const match of matches) {
+                        const player = findPlayerInMatch(match, name, tag);
+                        if (!player) continue;
+                        if (playerWonMatch(match, player)) seasonWins++;
+                        else seasonLosses++;
+                    }
+                    seasonGames = seasonWins + seasonLosses;
+                }
+
+                const recentGames = matches.length;
+                const recentKD = recentDeaths === 0 ? recentKills : (recentKills / recentDeaths);
+                const recentKDDisplay = recentKD.toFixed(2);
+                const recentAvgACS = recentGames > 0 ? Math.round(recentACS / recentGames) : 0;
+                const hsPct = totalShots > 0 ? Math.round((totalHS / totalShots) * 100) : 0;
+                const seasonWinRate = seasonGames > 0 ? ((seasonWins / seasonGames) * 100) : 0;
+                const seasonWinRateDisplay = seasonWinRate.toFixed(1);
+
+                let currentData = mmr?.current_data || mmr;
+                let rankName = 'Unranked';
+                let rankImg = 'https://media.valorant-api.com/competitivetiers/00000000-0000-0000-0000-000000000000/0/largeicon.png';
+                let rr = 0;
+                if (currentData?.currenttierpatched) {
+                    rankName = currentData.currenttierpatched;
+                    rr = currentData.ranking_in_tier || 0;
+                    if (currentData.images?.large) rankImg = currentData.images.large;
+                }
+
+                let peakRank = 'Unranked';
+                let peakTier = -1;
+                const tierMap = { 'unrated': 0, 'iron': 1, 'bronze': 2, 'silver': 3, 'gold': 4, 'platinum': 5, 'diamond': 6, 'ascendant': 7, 'immortal': 8, 'radiant': 9 };
+                if (mmr?.by_season) {
+                    for (const [seasonId, seasonData] of Object.entries(mmr.by_season)) {
+                        const rank = seasonData.final_rank_patched || seasonData.currenttierpatched || '';
+                        const lower = rank.toLowerCase();
+                        let tier = -1;
+                        for (const [key, val] of Object.entries(tierMap)) {
+                            if (lower.includes(key) && val > tier) tier = val;
+                        }
+                        if (tier > peakTier) { peakTier = tier; peakRank = rank; }
+                    }
+                }
+                if (peakTier === -1 && rankName !== 'Unranked') peakRank = rankName;
+
+                const trollRank = getTrollRankName(rankName);
+                const level = account.account_level || 0;
+                const cardImg = account.card?.small || '';
+
+                const kdRoast = getRoast('kd', recentKD);
+                const acsRoast = getRoast('acs', recentAvgACS);
+                const wrRoast = getRoast('wr', seasonWinRate);
+                const levelRoast = getRoast('level', level);
+                const hsRoast = getRoast('hs', hsPct);
+                const verdict = calculateVerdict(recentKD, recentAvgACS, seasonWinRate, level, hsPct);
+
+                let sarcasm = getRandomSarcasm();
+                if (seasonGames > 0) {
+                    const wr = parseFloat(seasonWinRateDisplay);
+                    if (wr < 40) sarcasm = 'Absolute trash, go back to tutorial 🤮';
+                    else if (wr < 50) sarcasm = 'Negative winrate, yikes 😬';
+                    else if (wr < 55) sarcasm = 'Average at best, like your life 👎';
+                    else if (wr < 65) sarcasm = 'Decent but still boosted 🏋️';
+                    else sarcasm = 'Tryhard alert! Do you even touch grass? 🌿';
+                }
+
+                let matchListHTML = '';
+                let displayMatches = [];
+                if (isPrivate || !Array.isArray(matches) || matches.length === 0) {
+                    matchListHTML = renderNoMatches();
+                } else {
+                    displayMatches = matches.slice(0, 10);
+                    matchListHTML = displayMatches.map((match, idx) => {
+                        const player = findPlayerInMatch(match, name, tag);
+                        if (!player) return '';
+                        const k = player.stats?.kills || 0;
+                        const d = player.stats?.deaths || 0;
+                        const a = player.stats?.assists || 0;
+                        const rounds = match.metadata?.rounds_played || 1;
+                        const acs = Math.round((player.stats?.score || 0) / rounds);
+                        const won = playerWonMatch(match, player);
+                        const { teamScore, enemyScore } = getTeamScores(match, player);
+                        const resultClass = won ? 'win' : 'loss';
+                        const badge = getBadge(won, acs);
+                        const agentImg = safeGet(player, 'assets.agent.small', '');
+                        const mapName = match.metadata?.map?.name || 'Unknown Map';
+                        const seasonId = match.metadata?.season || match.metadata?.season_id || '';
+                        const seasonLabel = formatSeasonLabel(seasonId);
+                        const timeAgo = match.metadata?.game_start ? formatTimeAgo(new Date(match.metadata.game_start * 1000)) : 'unknown time';
+
+                        let matchRoast = '';
+                        if (won) {
+                            const wRoasts = ["You actually did something right for once", "Your team carried you tbh", "Even a broken clock is right twice a day", "Don't let this win fool you", "You're still bad but nice win", "Your teammates deserve a medal", "Smurfing? Or just lucky?", "One win doesn't fix your KD", "You got carried, admit it", "Your enemies were worse than you"];
+                            matchRoast = wRoasts[Math.floor(Math.random() * wRoasts.length)];
+                        } else {
+                            const lRoasts = ["You're the reason we lost", "Did you even try?", "Your aim is questionable", "0 impact, 0 kills, 0 brain cells", "Enemy team farming you", "You're getting diffed hard", "Please uninstall", "Your teammates are reporting you", "You're a liability", "The enemy team loves you (free kills)", "You're making it look easy (to beat you)", "Your rank is a lie"];
+                            matchRoast = lRoasts[Math.floor(Math.random() * lRoasts.length)];
+                        }
+
+                        return `
+                  <div class="match ${resultClass}" data-idx="${idx}" role="button" tabindex="0">
+                    <div class="match-bar"></div>
+                    <div class="troll-badge">${badge}</div>
+                    <div class="match-body">
+                      <div class="match-info">
+                        <div class="agent-icon"><img src="${agentImg}" alt="" loading="lazy"></div>
+                        <div class="match-details">
+                          <h3>${teamScore} - ${enemyScore} (${won ? 'EZ CLAP' : 'GET GOOD'})</h3>
+                          <p>${mapName} · ${player.character || 'Unknown'} · ${timeAgo} <span style="color:var(--hk-gold);">(${seasonLabel})</span></p>
+                          <div class="match-roast">💬 ${matchRoast}</div>
+                          <div class="click-hint">🔍 TAP FOR FULL SCOREBOARD (if you dare)</div>
+                        </div>
+                      </div>
+                      <div class="match-stats">
+                        <div class="mstat"><div class="mstat-val">${k}</div><div class="mstat-lbl">Bodies</div></div>
+                        <div class="mstat"><div class="mstat-val">${d}</div><div class="mstat-lbl">Donated</div></div>
+                        <div class="mstat"><div class="mstat-val">${a}</div><div class="mstat-lbl">Charity</div></div>
+                        <div class="mstat"><div class="mstat-val">${acs}</div><div class="mstat-lbl">ACS</div></div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+                    }).join('');
+                }
+                lastDisplayMatches = displayMatches;
+
+                const topAgents = Object.values(agentStats).sort((a, b) => b.games - a.games).slice(0, 5);
+                let agentsHTML = '';
+                if (topAgents.length > 0) {
+                    agentsHTML = topAgents.map(agent => {
+                        const aKD = agent.deaths === 0 ? agent.kills : (agent.kills / agent.deaths);
+                        const aKDDisplay = aKD.toFixed(2);
+                        const aWR = ((agent.wins / agent.games) * 100).toFixed(1);
+                        const roast = getAgentRoast(agent.name);
+                        return `
+                  <div class="agent-row">
+                    <div class="agent-mini"><img src="${agent.icon}" alt="" loading="lazy"></div>
+                    <div class="agent-info">
+                      <div class="agent-name">${agent.name}</div>
+                      <div class="agent-stats">${agent.games} games · ${aKDDisplay} K/D · ${aWR}% WR</div>
+                      <div class="agent-roast">💀 ${roast}</div>
+                    </div>
+                    <div class="agent-wr">${aWR}%</div>
+                  </div>
+                `;
+                    }).join('');
+                } else {
+                    agentsHTML = '<div style="color:var(--hk-pink); text-align:center; padding:20px;">No agent data. Probably instalocks Reyna.</div>';
+                }
+
+                profileContent.innerHTML = `
+              <section class="hero">
+                <div class="hero-grid">
+                  <div class="hero-left">
+                    <div class="avatar"><img src="${cardImg}" alt="Player Card" loading="lazy"></div>
+                    <div class="level-badge">LVL ${level} (UNPAID RIOT INTERN)</div>
+                    <div class="player-name">${account.name || name}</div>
+                    <div class="player-tag">#${account.tag || tag} · ${activeRegion.toUpperCase()}</div>
+                    <div class="rank-display">
+                      <img src="${rankImg}" alt="${rankName}" loading="lazy">
+                      <div class="rank-name">${rankName}</div>
+                      <div class="troll-rank">aka: ${trollRank}</div>
+                      <div class="rr-text">${rr} RR (Rage Rating)</div>
+                      <div class="peak-rank">🏆 Peak: ${peakRank}</div>
+                    </div>
+                    <div class="sarcastic-comment">💬 ${sarcasm}</div>
+                  </div>
+                  <div class="hero-right">
+                    <div class="stat-card">
+                      <div class="stat-value">${seasonWins}</div>
+                      <div class="stat-label">Season Wins</div>
+                      <div class="stat-roast">${wrRoast}</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-value">${seasonLosses}</div>
+                      <div class="stat-label">Season Losses</div>
+                      <div class="stat-roast">${levelRoast}</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-value">${seasonWinRateDisplay}%</div>
+                      <div class="stat-label">Season Win Rate</div>
+                      <div class="stat-roast">${wrRoast}</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-value">${seasonGames}</div>
+                      <div class="stat-label">Season Games</div>
+                      <div class="stat-roast">${levelRoast}</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-value">${recentKDDisplay}</div>
+                      <div class="stat-label">Recent K/D</div>
+                      <div class="stat-roast">${kdRoast}</div>
+                    </div>
+                    <div class="stat-card">
+                      <div class="stat-value">${recentAvgACS}</div>
+                      <div class="stat-label">Recent ACS</div>
+                      <div class="stat-roast">${acsRoast}</div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="verdict-box">
+                <div class="verdict-title">⚖️ THE VERDICT ⚖️</div>
+                <div class="verdict-score">Score: ${verdict.score}/100</div>
+                <div class="verdict-roast ${verdict.cssClass}">${verdict.verdict}</div>
+                <div style="font-family:'Comic Neue',cursive; color:var(--hk-red); margin-top:8px; font-size:1.1rem;">${verdict.roast}</div>
+              </div>
+
+              <div class="content-grid">
+                <div>
+                  <div class="section-title">🐱 RECENT DISASTERS 🐱</div>
+                  <div class="match-list">${matchListHTML}</div>
+                </div>
+                <aside>
+                  <div class="section-title">🎀 MAIN ABUSERS 🎀</div>
+                  <div class="side-card">
+                    <div class="side-head">TOP CRUTCH AGENTS</div>
+                    ${agentsHTML}
+                  </div>
+                  <div class="chart-card">
+                    <div class="side-head" style="color:var(--hk-red);">BURDEN SCORE GRAPH</div>
+                    <div class="chart-wrap"><canvas id="perfChart"></canvas></div>
+                  </div>
+                </aside>
+              </div>
+            `;
+
+                renderChart([...acsHistory].reverse(), [...kdHistory].reverse());
+                statusMsg.textContent = '✅ loaded';
+                setTimeout(() => { showRandomAchievement(); showRandomAchievement(); }, 1000);
+            }
+
+            // ─── Chart ─────────────────────────────────────────────
+            function renderChart(acsData, kdData) {
+                const canvas = document.getElementById('perfChart');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                if (perfChart) { perfChart.destroy(); perfChart = null; }
+                if (!acsData || acsData.length === 0) {
+                    perfChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: { labels: ['No Data'], datasets: [{ label: 'ACS', data: [0], backgroundColor: '#ffb6c1', borderColor: '#ff69b4', borderWidth: 1, yAxisID: 'y' }] },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e4002b', font: { family: 'Comic Neue' } } } }, scales: { x: { grid: { color: '#ffc0cb' }, ticks: { color: '#ff69b4' } }, y: { grid: { color: '#ffc0cb' }, ticks: { color: '#ff69b4' }, min: 0 } } }
+                    });
+                    return;
+                }
+                while (kdData.length < acsData.length) kdData.push(0);
+                const labels = acsData.map((_, i) => `M${i+1}`);
+                perfChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            { label: 'ACS', data: acsData, backgroundColor: '#ffb6c1', borderColor: '#ff69b4', borderWidth: 2, yAxisID: 'y' },
+                            { label: 'K/D', data: kdData, type: 'line', borderColor: '#e4002b', backgroundColor: 'rgba(228, 0, 43, 0.15)', tension: 0.3, pointBackgroundColor: '#e4002b', pointBorderColor: '#fff', pointRadius: 4, fill: true, yAxisID: 'y1' }
+                        ]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { legend: { labels: { color: '#e4002b', font: { family: 'Comic Neue', size: 12 } } } },
+                        scales: {
+                            x: { grid: { color: '#ffc0cb' }, ticks: { color: '#ff69b4', font: { family: 'Comic Neue', size: 10 } } },
+                            y: { grid: { color: '#ffc0cb' }, ticks: { color: '#ff69b4' }, position: 'left', title: { display: true, text: 'ACS', color: '#ff69b4' }, beginAtZero: true },
+                            y1: { grid: { drawOnChartArea: false }, ticks: { color: '#e4002b' }, position: 'right', title: { display: true, text: 'K/D', color: '#e4002b' }, beginAtZero: true }
+                        }
+                    }
+                });
+            }
+
+            // ─── Jumpscare + match modal ──────────────────────────
+            let modalBusy = false;
+
+            function getAllPlayers(match) { return match.players?.all_players || match.players || []; }
+            function pickFirst(...vals) { for (const v of vals) { if (v !== undefined && v !== null) return v; } return undefined; }
+            function getDamageMade(p) {
+                const dmg = pickFirst(safeGet(p, 'stats.damage.dealt', undefined), safeGet(p, 'stats.damage_made', undefined), safeGet(p, 'damage_made', undefined));
+                return typeof dmg === 'number' ? dmg : null;
+            }
+            function formatDuration(raw) {
+                if (raw === undefined || raw === null) return null;
+                let seconds = raw;
+                if (raw > 36000) seconds = Math.round(raw / 1000);
+                const m = Math.floor(seconds / 60);
+                const s = Math.round(seconds % 60);
+                return `${m}:${String(s).padStart(2, '0')}`;
+            }
+
+            function playJumpscareSound() {
+                try {
+                    const Ctx = window.AudioContext || window.webkitAudioContext;
+                    if (!Ctx) return;
+                    const ctx = new Ctx();
+                    const now = ctx.currentTime;
+                    const osc = ctx.createOscillator();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(800, now);
+                    osc.frequency.exponentialRampToValueAtTime(400, now + 0.3);
+                    const gain = ctx.createGain();
+                    gain.gain.setValueAtTime(0.0001, now);
+                    gain.gain.exponentialRampToValueAtTime(0.2, now + 0.02);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.4);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.5);
+                    osc.onended = () => ctx.close();
+                } catch (_) {}
+            }
+
+            function triggerJumpscare(onDone) {
+                const emojis = ['🐱', '🎀', '💖', '🌸', '💀', '🤡'];
+                const phrases = ['MEOW!', 'KAWAII!', 'BOO!', 'SCARED YA?', 'SKILL ISSUE!', 'NYA~!'];
+                const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+
+                const overlay = document.createElement('div');
+                overlay.className = 'jumpscare-overlay';
+                overlay.innerHTML = `<div class="jumpscare-emoji">${emoji}</div><div class="jumpscare-text">${phrase}</div>`;
+                document.body.appendChild(overlay);
+                document.body.style.overflow = 'hidden';
+
+                playJumpscareSound();
+
+                let finished = false;
+                const finish = () => {
+                    if (finished) return;
+                    finished = true;
+                    overlay.remove();
+                    document.body.style.overflow = '';
+                    if (onDone) onDone();
+                };
+                overlay.addEventListener('click', finish);
+                const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                setTimeout(finish, reduceMotion ? 150 : 750);
+            }
+
+            function handleModalEscape(e) { if (e.key === 'Escape') closeMatchModal(); }
+
+            function closeMatchModal() {
+                const existing = document.querySelector('.modal-overlay');
+                if (existing) existing.remove();
+                document.body.style.overflow = '';
+                modalBusy = false;
+                document.removeEventListener('keydown', handleModalEscape);
+            }
+
+            function buildScoreboardRows(players, rounds) {
+                return players.map(p => {
+                    const pName = (p.gameName || p.name || 'Unknown');
+                    const pTag = (p.tag || p.tagLine || '');
+                    const isYou = pName.toLowerCase() === lastName.toLowerCase() && pTag.toLowerCase() === lastTag.toLowerCase();
+                    const k = p.stats?.kills || 0;
+                    const d = p.stats?.deaths || 0;
+                    const a = p.stats?.assists || 0;
+                    const score = p.stats?.score || 0;
+                    const acs = Math.round(score / rounds);
+                    const hs = p.stats?.headshots || 0;
+                    const bs = p.stats?.bodyshots || 0;
+                    const ls = p.stats?.legshots || 0;
+                    const totalShots = hs + bs + ls;
+                    const hsPct = totalShots > 0 ? Math.round((hs / totalShots) * 100) : 0;
+                    const dmg = getDamageMade(p);
+                    const agentImg = safeGet(p, 'assets.agent.small', '');
+                    const hsBadge = hsPct < 15 ? ' 💀' : (hsPct > 35 ? ' 🚨' : '');
+                    return { pName, pTag, isYou, k, d, a, acs, hsPct, hsBadge, dmg, agentImg, score };
+                }).sort((a, b) => b.score - a.score);
+            }
+
+            function renderScoreboardTable(rows) {
+                if (rows.length === 0) return '<p style="color:#888; font-size:12px; padding:8px 0;">No player data.</p>';
+                return `
+              <table class="scoreboard-table">
+                <thead><tr><th>Player</th><th>K/D/A</th><th>ACS</th><th>HS%</th><th>DMG</th></tr></thead>
+                <tbody>
+                  ${rows.map(r => `
+                    <tr class="${r.isYou ? 'is-you' : ''}">
+                      <td><div class="sb-player"><div class="sb-agent-icon"><img src="${r.agentImg}" alt="" loading="lazy"></div><span class="sb-player-name">${r.pName}</span></div></td>
+                      <td>${r.k}/${r.d}/${r.a}</td>
+                      <td>${r.acs}</td>
+                      <td>${r.hsPct}%${r.hsBadge}</td>
+                      <td>${r.dmg === null ? 'N/A' : r.dmg}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            `;
+            }
+
+            function showMatchModal(match) {
+                const me = findPlayerInMatch(match, lastName, lastTag);
+                const rounds = match.metadata?.rounds_played || 1;
+                const allPlayers = getAllPlayers(match);
+                const myTeamKey = (me?.team || '').toLowerCase();
+                const myTeamPlayers = allPlayers.filter(p => (p.team || '').toLowerCase() === myTeamKey);
+                const enemyTeamPlayers = allPlayers.filter(p => (p.team || '').toLowerCase() !== myTeamKey);
+                const myRows = buildScoreboardRows(myTeamPlayers, rounds);
+                const enemyRows = buildScoreboardRows(enemyTeamPlayers, rounds);
+
+                const won = me ? playerWonMatch(match, me) : false;
+                const { teamScore, enemyScore } = me ? getTeamScores(match, me) : { teamScore: 0, enemyScore: 0 };
+                const mapName = match.metadata?.map?.name || 'Unknown Map';
+                const modeLabel = match.metadata?.mode || match.metadata?.queue || 'Unknown Mode';
+                const timeAgo = match.metadata?.game_start ? formatTimeAgo(new Date(match.metadata.game_start * 1000)) : 'unknown time';
+                const duration = formatDuration(match.metadata?.game_length);
+
+                const myStats = me ? {
+                    k: me.stats?.kills || 0, d: me.stats?.deaths || 0, a: me.stats?.assists || 0,
+                    acs: Math.round((me.stats?.score || 0) / rounds),
+                    hs: (() => { const hs = me.stats?.headshots || 0, bs = me.stats?.bodyshots || 0, ls = me.stats?.legshots || 0; const total = hs + bs + ls; return total > 0 ? Math.round((hs / total) * 100) : 0; })()
+                } : { k: 0, d: 0, a: 0, acs: 0, hs: 0 };
+
+                const hsBadge = myStats.hs < 15 ? ' 💀' : (myStats.hs > 35 ? ' 🚨' : '');
+
+                const overlay = document.createElement('div');
+                overlay.className = 'modal-overlay';
+                overlay.innerHTML = `
+              <div class="match-modal">
+                <button class="modal-close" aria-label="Close">✕</button>
+                <div class="modal-header">
+                  <h2>${teamScore} - ${enemyScore} (${won ? 'EZ CLAP' : 'GET GOOD'})</h2>
+                  <p>${mapName} · ${modeLabel} · ${timeAgo}${duration ? ' · ' + duration : ''}</p>
+                </div>
+                <div class="modal-stat-strip">
+                  <div class="stat-card"><div class="stat-value">${myStats.k}/${myStats.d}/${myStats.a}</div><div class="stat-label">K/D/A</div></div>
+                  <div class="stat-card"><div class="stat-value">${myStats.acs}</div><div class="stat-label">ACS</div></div>
+                  <div class="stat-card"><div class="stat-value">${myStats.hs}%${hsBadge}</div><div class="stat-label">Headshot %</div></div>
+                  <div class="stat-card"><div class="stat-value">${won ? 'W' : 'L'}</div><div class="stat-label">Result</div></div>
+                </div>
+                <div class="scoreboard-team"><div class="scoreboard-team-label you">YOUR TEAM</div>${renderScoreboardTable(myRows)}</div>
+                <div class="scoreboard-team"><div class="scoreboard-team-label them">ENEMY TEAM</div>${renderScoreboardTable(enemyRows)}</div>
+              </div>
+            `;
+                document.body.appendChild(overlay);
+                document.body.style.overflow = 'hidden';
+                modalBusy = true;
+                overlay.addEventListener('click', (e) => { if (e.target === overlay) closeMatchModal(); });
+                overlay.querySelector('.modal-close').addEventListener('click', closeMatchModal);
+                document.addEventListener('keydown', handleModalEscape);
+            }
+
+            function openMatchDetail(idx) {
+                if (modalBusy) return;
+                const match = lastDisplayMatches[idx];
+                if (!match) return;
+                modalBusy = true;
+                triggerJumpscare(() => showMatchModal(match));
+            }
+
+            // ─── Events ─────────────────────────────────────────────
+            searchBtn.addEventListener('click', fetchPlayerData);
+            searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchPlayerData(); });
+            document.addEventListener('click', (e) => { const card = e.target.closest('.match[data-idx]'); if (card) openMatchDetail(parseInt(card.dataset.idx, 10)); });
+            document.addEventListener('keydown', (e) => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('match')) { e.preventDefault(); openMatchDetail(parseInt(e.target.dataset.idx, 10)); } });
+
+            // ============================================================
+            // TROLL BEHAVIORS
+            // ============================================================
+
+            function getRandomSarcasm() {
+                const SARCASM = ["Skill issue detected 🐱", "Uninstall recommended 🗑️", "Is this your alt account? 😂", "Your rank is a lie 💀", "Maybe try Minecraft? ⛏️", "Reported for being bad 📢", "You made my day worse 😤", "I've seen better aim in a wheelchair ♿", "Your mom doesn't even love you 💔", "This is why you have no friends 😎", "You are the reason we can't have nice things", "Did you buy this account? 🤑", "Your KD is lower than your IQ 📉", "Please touch grass 🌱", "You are the final boss of being average 😴"];
+                return SARCASM[Math.floor(Math.random() * SARCASM.length)];
+            }
+
+            // ─── Miss counter ──────────────────────────────────────
+            function incrementMiss() {
+                if (isStatic) return;
+                missCount++;
+                if (missCount >= 10) {
+                    isStatic = true;
+                    searchBtn.classList.add('static');
+                    missPopup.style.display = 'block';
+                    try {
+                        const ac = new(window.AudioContext || window.webkitAudioContext)();
+                        if (ac.state === 'suspended') ac.resume();
+                        const o = ac.createOscillator();
+                        const g = ac.createGain();
+                        o.type = 'sine';
+                        o.frequency.setValueAtTime(400, ac.currentTime);
+                        o.frequency.exponentialRampToValueAtTime(800, ac.currentTime + 0.3);
+                        g.gain.value = 0.08;
+                        o.connect(g).connect(ac.destination);
+                        o.start();
+                        o.stop(ac.currentTime + 0.4);
+                        setTimeout(() => ac.close(), 500);
+                    } catch (_) {}
+                    showAchievement('🐱', 'You Missed 10 Times!');
+                }
+            }
+
+            // ─── Button run-away ──────────────────────────────────
+            (function trollButton() {
+                const btn = document.getElementById('searchBtn');
+                let active = true;
+
+                function moveButton() {
+                    if (!active || isStatic) return;
+                    const maxX = window.innerWidth - btn.offsetWidth - 20;
+                    const maxY = window.innerHeight - btn.offsetHeight - 30;
+                    const x = Math.max(10, Math.random() * maxX);
+                    const y = Math.max(80, Math.random() * maxY);
+                    btn.style.position = 'fixed';
+                    btn.style.left = x + 'px';
+                    btn.style.top = y + 'px';
+                    btn.style.zIndex = '999';
+                }
+
+                btn.addEventListener('mouseover', () => {
+                    if (!active || isStatic) return;
+                    if (!btn.disabled) {
+                        incrementMiss();
+                        moveButton();
+                        try {
+                            const ac = new(window.AudioContext || window.webkitAudioContext)();
+                            if (ac.state === 'suspended') ac.resume();
+                            const o = ac.createOscillator();
+                            const g = ac.createGain();
+                            o.type = 'sine';
+                            o.frequency.value = 500 + Math.random() * 300;
+                            g.gain.value = 0.04;
+                            o.connect(g).connect(ac.destination);
+                            o.start();
+                            o.stop(ac.currentTime + 0.05);
+                            setTimeout(() => ac.close(), 100);
+                        } catch (_) {}
+                    }
+                });
+
+                btn.addEventListener('click', () => {
+                    if (!btn.disabled) {
+                        btn.style.position = 'relative';
+                        btn.style.left = 'auto';
+                        btn.style.top = 'auto';
+                        btn.style.zIndex = '30';
+                    }
+                });
+
+                const origFetch = fetchPlayerData;
+                fetchPlayerData = async function() {
+                    active = false;
+                    btn.style.position = 'relative';
+                    btn.style.left = 'auto';
+                    btn.style.top = 'auto';
+                    btn.style.zIndex = '30';
+                    await origFetch.call(this);
+                    active = true;
+                };
+            })();
+
+            popupOkBtn.addEventListener('click', () => {
+                missPopup.style.display = 'none';
+                missCount = 0;
+                searchBtn.classList.add('static');
+                searchBtn.style.position = 'relative';
+                searchBtn.style.left = 'auto';
+                searchBtn.style.top = 'auto';
+                searchBtn.style.zIndex = '30';
+            });
+
+            // ─── Vanguard Banner ──────────────────────────────────
+            let banActive = false;
+            vanguardBanner.addEventListener('click', () => {
+                if (banActive) return;
+                banActive = true;
+                showBanOverlay();
+                triggerScreenShake();
+            });
+
+            function showBanOverlay() {
+                const overlay = document.createElement('div');
+                overlay.className = 'ban-overlay';
+                overlay.innerHTML = `
+              <div class="ban-icon">🐱</div>
+              <div class="ban-title">YOUR ACCOUNT HAS BEEN BANNED</div>
+              <div class="ban-sub">REASON: LACK OF SKILL 💀</div>
+              <button class="ban-dismiss">I WILL GET GOOD</button>
+            `;
+                document.body.appendChild(overlay);
+                overlay.querySelector('.ban-dismiss').addEventListener('click', () => {
+                    overlay.remove();
+                    banActive = false;
+                    showAchievement('😭', 'You Got Banned (fake)');
+                });
+                setTimeout(() => { if (overlay.parentNode) { overlay.remove(); banActive = false; } }, 8000);
+            }
+
+            adBar.addEventListener('click', () => { triggerJumpscare(() => { showAchievement('🐱', 'You Fell For It'); }); });
+
+            function rotateTip() {
+                tipIndex = (tipIndex + 1) % PRO_TIPS.length;
+                const tip = PRO_TIPS[tipIndex];
+                tipsBar.innerHTML = `<span>${tip}</span>`;
+                const span = tipsBar.querySelector('span');
+                if (span) { span.style.animation = 'none'; void span.offsetHeight; span.style.animation = 'tipFade 0.5s ease'; }
+            }
+            setInterval(rotateTip, 6000);
+
+            function showRandomChat() {
+                const msg = CHAT_MESSAGES[Math.floor(Math.random() * CHAT_MESSAGES.length)];
+                chatOverlay.style.display = 'block';
+                chatOverlay.innerHTML = `<span class="chat-name">${msg.name}:</span> <span class="chat-msg">${msg.msg}</span>`;
+                chatOverlay.style.animation = 'none';
+                void chatOverlay.offsetHeight;
+                chatOverlay.style.animation = 'chatFade 0.3s ease';
+                clearTimeout(chatOverlay._timeout);
+                chatOverlay._timeout = setTimeout(() => { chatOverlay.style.display = 'none'; }, 5000);
+            }
+            setInterval(showRandomChat, 12000 + Math.random() * 8000);
+            setTimeout(showRandomChat, 3000);
+
+            function showAchievement(emoji, text) {
+                const el = document.createElement('div');
+                el.className = 'achievement';
+                el.innerHTML = `<span class="ach-emoji">${emoji}</span> ${text}`;
+                achievementContainer.appendChild(el);
+                setTimeout(() => { el.classList.add('fade-out'); setTimeout(() => { if (el.parentNode) el.remove(); }, 600); }, 3500);
+            }
+
+            function showRandomAchievement() {
+                const ach = ACHIEVEMENTS[Math.floor(Math.random() * ACHIEVEMENTS.length)];
+                showAchievement(ach.emoji, ach.text);
+            }
+            setInterval(() => { if (Math.random() < 0.4) showRandomAchievement(); }, 8000 + Math.random() * 7000);
+
+            reportSelfBtn.addEventListener('click', () => {
+                if (currentPlayerData) {
+                    showAchievement('🚨', `Reported ${currentPlayerData.name}#${currentPlayerData.tag} for being bad`);
+                    triggerScreenShake();
+                    setTimeout(() => { showBanOverlay(); }, 500);
+                } else {
+                    showAchievement('🐱', 'You reported yourself (no stats loaded)');
+                    triggerScreenShake();
+                }
+            });
+
+            // ─── Cursor Trail ──────────────────────────────────────
+            const TRAIL_EMOJIS = ['🐱', '🎀', '💖', '🌸', '⭐', '💎', '💗', '✨'];
+            let trailTimeout = null;
+            document.addEventListener('mousemove', (e) => {
+                if (trailTimeout) return;
+                trailTimeout = setTimeout(() => { trailTimeout = null; }, 60);
+                const emoji = TRAIL_EMOJIS[Math.floor(Math.random() * TRAIL_EMOJIS.length)];
+                const el = document.createElement('div');
+                el.className = 'trail-emoji';
+                el.textContent = emoji;
+                el.style.left = (e.clientX - 16) + 'px';
+                el.style.top = (e.clientY - 16) + 'px';
+                document.body.appendChild(el);
+                setTimeout(() => { if (el.parentNode) el.remove(); }, 800);
+            });
+
+            function triggerScreenShake() {
+                document.body.classList.add('shake');
+                setTimeout(() => { document.body.classList.remove('shake'); }, 300);
+            }
+            setInterval(() => { if (Math.random() < 0.3) triggerScreenShake(); }, 30000 + Math.random() * 30000);
+
+            // ─── Monkey/Cat troll ──────────────────────────────────
+            document.getElementById('monkey').addEventListener('click', () => {
+                alert('🐱 MEOW MEOW NYA~! 🐱');
+                try {
+                    const ac = new(window.AudioContext || window.webkitAudioContext)();
+                    if (ac.state === 'suspended') ac.resume();
+                    const o = ac.createOscillator();
+                    const g = ac.createGain();
+                    o.type = 'sine';
+                    o.frequency.setValueAtTime(600, ac.currentTime);
+                    o.frequency.exponentialRampToValueAtTime(1200, ac.currentTime + 0.3);
+                    g.gain.value = 0.06;
+                    o.connect(g).connect(ac.destination);
+                    o.start();
+                    o.stop(ac.currentTime + 0.4);
+                    setTimeout(() => ac.close(), 500);
+                } catch (_) {}
+                showAchievement('🐱', 'Kitty Business');
+            });
+
+            let logoClicks = 0;
+            document.getElementById('header').addEventListener('click', () => {
+                logoClicks++;
+                if (logoClicks >= 10) {
+                    logoClicks = 0;
+                    triggerJumpscare(() => { showAchievement('🎀', 'Logo Clicked 10 Times'); });
+                }
+            });
+
+            const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+            let konamiIdx = 0;
+            window.addEventListener('keydown', (e) => {
+                const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+                if (key === KONAMI[konamiIdx]) {
+                    konamiIdx++;
+                    if (konamiIdx === KONAMI.length) {
+                        konamiIdx = 0;
+                        triggerJumpscare(() => { showAchievement('🌸', 'Konami Code Activated'); });
+                    }
+                } else {
+                    konamiIdx = (key === KONAMI[0]) ? 1 : 0;
+                }
+            });
+
+            setTimeout(() => { if (Math.random() < 0.10) triggerJumpscare(() => {}); }, 2500);
+
+            console.log('%c🐱 VALORANT Stats - Hello Kitty Edition 🐱', 'color:#ff69b4;font-size:24px;font-weight:bold;');
+
+        })();
+    </script>
+
+</body>
+</html>
